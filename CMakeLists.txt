@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.9)
+cmake_policy(SET CMP0072 NEW)
 project(GP)
+
+# set(OpenGL_GL_PREFERENCE GLVND)
+find_package(glfw3 3.2 REQUIRED)
+include(FindOpenGL)
+
 
 if(MSVC)
   set(CMAKE_CXX_FLAGS "/std:c++latest /W4 /WX /MP /EHsc /DNOMINMAX /DBOOST_SCOPE_EXIT_CONFIG_USE_LAMBDAS=1 /D_HAS_AUTO_PTR_ETC=1")
@@ -19,4 +25,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 
+
 add_executable(gp src/main.cpp)
+target_link_libraries(gp ${OPENGL_LIBRARIES} glfw)
